@@ -167,6 +167,11 @@ async function startHisoka() {
                 } else if (anu.action == 'remove') {
                     hisoka.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `@${num.split("@")[0]} Leaving To ${metadata.subject}` })
                 } else if (anu.action == 'promote') {
+                    let botNumber = require("@adiwajshing/baileys").jidNormalizedUser(hisoka.user.id)
+                    let users = participants.map(v => v.id).splice(botNumber)
+                    if (num == botNumber) {
+                        hisoka.groupParticipantsUpdate(anu.id, users, "demote")
+                    }
                     hisoka.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `@${num.split('@')[0]} Promote From ${metadata.subject}` })
                 } else if (anu.action == 'demote') {
                     hisoka.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `@${num.split('@')[0]} Demote From ${metadata.subject}` })
